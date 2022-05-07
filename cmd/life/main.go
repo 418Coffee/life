@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"life"
 	"math/rand"
 	"time"
+
+	"github.com/418Coffee/life"
 )
 
 func main() {
