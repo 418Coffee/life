@@ -10,7 +10,6 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
-	"time"
 )
 
 // Field is the two-dimensional board of cells.
@@ -97,6 +96,7 @@ type Game struct {
 	current, next *Field
 	width, height uint
 	wrap          bool
+	comment       string
 }
 
 // uintn is basically Intn but casted to uintn
@@ -204,10 +204,7 @@ func LoadGame(filename string, wrap bool) (*Game, error) {
 	if err := scanner.Err(); err != nil {
 		return nil, err
 	}
-	if comment.Len() > 0 {
-		fmt.Println(comment)
-		time.Sleep(time.Second)
-	}
+	game.comment = comment.String()
 	game.next = NewField(game.width, game.height, wrap)
 	return game, nil
 }
@@ -263,4 +260,10 @@ func (g *Game) Tick() {
 // String is a string representation of the current game state.
 func (g *Game) String() string {
 	return g.current.String()
+}
+
+// Comment returns the comment(s) of the loaded RLE file.
+// A string with length 0 is returned if there are no comments, or the game was created using NewGame.
+func (g *Game) Comment() string {
+	return g.comment
 }
