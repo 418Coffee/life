@@ -1,4 +1,4 @@
-module life
+module github.com/418Coffee/life
 
 go 1.17
 
