@@ -12,4 +12,4 @@ jobs:
         with:
           go-version: ${{ matrix.go-version }}
       - uses: actions/checkout@v3
-      - run: go test -timeout 30s life -v -count=1
+      - run: go test -timeout 30s github.com/418Coffe/life -v -count=1
