@@ -127,7 +127,7 @@ var (
 
 // LoadGame loads a Life game state from a run-length encoded file.
 // The file must have the .rle extension.
-// An error is returned if an error occured when reading the file or when parsing the contents.
+// An error is returned if an error occurred when reading the file or when parsing the contents.
 func LoadGame(filename string, wrap bool) (*Game, error) {
 	f, err := os.Open(filename)
 	if err != nil {
@@ -156,7 +156,7 @@ func LoadGame(filename string, wrap bool) (*Game, error) {
 			}
 			if line[0] == '#' {
 				// Comment line
-				// Skip the 3 preceeding bytes and append a new line for printing purposes.
+				// Skip the 3 preceding bytes and append a new line for printing purposes.
 				comment.Write(append(line[3:], '\n'))
 			} else if line[0] == 'x' {
 				// Alternative rules are not supported.
@@ -191,7 +191,9 @@ func LoadGame(filename string, wrap bool) (*Game, error) {
 				// Dead cells at the end of the last line of the pattern do not need to be encoded.
 				definedCells := bytes.Split(line, []byte{'$'})
 				for i, item := range definedCells {
-					game.current.s[i], err = generateLine(item, game.width)
+					if game.current.s[i], err = generateLine(item, game.width); err != nil {
+						return nil, err
+					}
 				}
 				// Define any dead cells if necessary.
 				for i := uint(len(definedCells)); i < game.height; i++ {
