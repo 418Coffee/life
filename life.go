@@ -33,11 +33,18 @@ func (f *Field) Set(x, y uint, v bool) {
 	f.s[y][x] = v
 }
 
-// Alive reports whether cell at position x,y is alive or dead.
-// If the x or y coordinates are outside the field boundaries they are wrapped toroidally.
-// x=-1 -> width-1
+// Alive reports whether the cell at position x,y is alive or dead.
+// If wrapping is enabled x or y coordinates that are outside the field boundaries, that is
+// x's or y's that are smaller than zero or x's or y's that are equal or greater than the field width or height respectively,
+// they are wrapped toroidally. x=-1 -> width-1.
+// If wrapping is disabled, cells with coordinates outside field boundaries are considered dead.
 func (f *Field) Alive(x, y int) bool {
 	w, h := int(f.width), int(f.height)
+	if !f.wrap {
+		if (x < 0 || y < 0) || (x >= w || y >= h) {
+			return false
+		}
+	}
 	x += w
 	x %= w
 	y += h
@@ -62,11 +69,6 @@ func (f *Field) Future(x, y uint) bool {
 	//	]
 	for i := -1; i <= 1; i++ {
 		for j := -1; j <= 1; j++ {
-			if !f.wrap {
-				if ix+i < 0 || iy+j < 0 {
-					continue
-				}
-			}
 			if (j != 0 || i != 0) && f.Alive(ix+i, iy+j) {
 				aliveNeighbours++
 			}
@@ -81,7 +83,7 @@ func (f *Field) String() string {
 	for y := 0; y < int(f.height); y++ {
 		for x := 0; x < int(f.width); x++ {
 			if f.Alive(x, y) {
-				w.WriteRune('*')
+				w.WriteRune('█')
 			} else {
 				w.WriteRune(' ')
 			}
