@@ -7,8 +7,6 @@ import (
 	"os"
 	"strconv"
 	"time"
-
-	"github.com/418Coffee/life"
 )
 
 var seed int64
@@ -38,10 +36,10 @@ func init() {
 }
 
 func main() {
-	var l *life.Game
+	var l *Game
 	var err error
 	if rleFile != "" {
-		if l, err = life.LoadGame(rleFile, !nowrap); err != nil {
+		if l, err = LoadGame(rleFile, !nowrap); err != nil {
 			printUsageAndExit(err)
 		}
 	} else {
@@ -59,7 +57,7 @@ func main() {
 		}
 		width, height = uint(w), uint(h)
 		rand.Seed(seed)
-		l = life.NewGame(width, height, !nowrap)
+		l = NewGame(width, height, !nowrap)
 	}
 
 	for i := uint(0); i < ticks; i++ {

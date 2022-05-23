@@ -1,4 +1,4 @@
-package life
+package main
 
 import (
 	"reflect"
