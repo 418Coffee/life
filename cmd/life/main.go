@@ -32,7 +32,7 @@ func init() {
 	}
 	flag.Int64Var(&seed, "seed", time.Now().UnixMicro(), "seed for initial state")
 	flag.BoolVar(&nowrap, "nowrap", false, "don't wrap field toroidally")
-	flag.UintVar(&ticks, "ticks", 100, "amount of generation to run")
+	flag.UintVar(&ticks, "ticks", 100, "amount of generations to run")
 	flag.StringVar(&rleFile, "file", "", "load initial state from .rle file (mutually exclusive with width height arguments)")
 	flag.Parse()
 }
