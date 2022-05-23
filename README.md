@@ -23,6 +23,17 @@ Play around with the cli:
 
 ```cmd
 life
+...
+Usage of life.exe [options] width height
+options:
+  -file string
+        load initial state from .rle file (mutually exclusive with width height arguments)
+  -nowrap
+        don't wrap field toroidally
+  -seed int
+        seed for initial state (default 1653324678377310)
+  -ticks uint
+        amount of generation to run (default 100)
 ```
 
 Or from your own program:
