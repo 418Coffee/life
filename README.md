@@ -21,7 +21,7 @@ go install github.com/418Coffee/life
 
 Play around with the cli:
 
-```cmd
+```
 life
 ...
 Usage of life.exe [options] width height
